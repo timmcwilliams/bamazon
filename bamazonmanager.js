@@ -39,24 +39,15 @@ var menu = function () {
                 }
             ])
             .then(function (inquirerResponse) {
-                // for (i = 0; i < res.length; i++) {
-                //     console.log(res[i].item_id + " | " + res[i].product_name + " | " + res[i].stock_quantity + " | " + res[i].price);
+               
                 var answer = inquirerResponse.userInput;
                 if (inquirerResponse.confirm) {
                     console.log("\nYou Picked line 1 " + inquirerResponse.userInput);
                     console.log(answer);
-                    // console.log("\nYou Picked line 2  " + inquirerResponse.userInput);
                 }
                 if (answer === "View Items") {
                     menu();
-                    // for (i = 0; i < res.length; i++) {
-                    //     console.log(res[i].item_id + " | " + res[i].product_name + " | " + res[i].stock_quantity + " | " + res[i].price);
-            
-                    //     console.log("____________________________________________");
-                    //     console.log("--------------------------------------------");
-                        
-                    // }
-                    
+                  
                 }
                 else if (answer == "Add Item") {
                     console.log("Hello Add");
@@ -64,17 +55,19 @@ var menu = function () {
 
                 }
                 else if (answer == "Look at Low Inventory") {
-                    console.log("hit it");
-                    // var lookat = answer;
+
                     for (i = 0; i < res.length; i++) {
                         if (res[i].stock_quantity <= 9) {
                             console.log(res[i].item_id + " | " + res[i].product_name + " | " + res[i].stock_quantity);
+                            console.log("____________________________________________");
+                            // addInv();
+                            // menu();
+
                         }
                     }
                 }
                 else if (answer == "Add Inventory") {
                     var addinv = answer;
-                    console.log(view);
                     addInv();
                 }
 
@@ -97,14 +90,11 @@ var menu = function () {
                                 name: "price",
                                 type: "input",
                                 message: "What would you like your selling price to be?"
-                                // validate: function (value) {
-                                //     if (isNaN(value) === false) {
-                                //         return true;
-                                //     }
-                                //     return false;
-                                // }
+
                             }
+
                         ])
+
                         .then(function (answerP) {
                             // when finished prompting, insert a new item into the db with that info
                             connection.query(
@@ -118,15 +108,15 @@ var menu = function () {
                                 function (err) {
                                     if (err) throw err;
                                     console.log("Your item was added successfully!");
-                                    // add();
+
+                                    menu();
                                 });
+
                         });
+
                 }
-                // end of add item function
-                // ____________________________________________________________________________________________________________________________
-                //start of add inventory
+
                 function addInv() {
-                    console.log("line 123");
                     // prompt for info about the item needing inventory - this is an update function
                     inquirer
                         .prompt([
@@ -158,13 +148,9 @@ var menu = function () {
                                     {
                                         item_id: answerI.item
                                     },
-                                    // function (err) {
-                                    //     if (err) throw err;
-                                    //     console.log("Your item was added successfully!");
-                                    // add();
 
                                 ])
-                            menu();    
+                            menu();
                         });
                 }
             });
